@@ -5,17 +5,14 @@ from service.weather_service import WeatherService
 from api.db.connect import  get_db
 from sqlalchemy.orm import Session
 
-
-
 router  = APIRouter(prefix="/weather")
-
 @router.get("/")
 def get_weather(db:Session = Depends(get_db)):
     return WeatherService.get_all(db=db)
 
 
 @router.get("/{city}")
-def get_weather_by_city(city:CoverageCity, db:Session = Depends(get_db)):
+def get_weather_by_city(city:str, db:Session = Depends(get_db)):
     result = WeatherService.get_by_city(city, db=db)
     return result
 
